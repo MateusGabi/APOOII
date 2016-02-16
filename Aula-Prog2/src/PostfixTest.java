@@ -45,26 +45,31 @@ public class PostfixTest {
     }
 
     public static String translator(String e) {
-        
+
         util.Stack<String> stack = new ArrayStack<>();
-        
+
         String retorno = "";
-        
+
         for (int i = 0; i < e.length(); i++) {
-            
-            String c = ""+ e.charAt(i)+"";
-                    
-            switch(c)
-            {
+
+            String c = "" + e.charAt(i) + "";
+
+            switch (c) {
                 case "(":
                     stack.push(c);
                     break;
                 case "+":
                 case "-":
-                    if(!stack.empty())
-                        if(stack.peek().equals("*") || stack.peek().equals("/"))
-                            while(!stack.empty())
+                    if (!stack.empty()) {
+                        if (stack.peek().equals("*") || stack.peek().equals("/")) {
+                            while (!stack.empty()) {
+                                if (stack.peek().equals("(")) {
+                                    break;
+                                }
                                 retorno += stack.pop();
+                            }
+                        }
+                    }
                     stack.push(c);
                     break;
                 case "*":
@@ -79,13 +84,16 @@ public class PostfixTest {
                     break;
                 default:
                     retorno += c;
-            }        
+            }
         }
-        
-        while (!stack.empty()) {            
+
+        while (!stack.empty()) {
+            if (stack.peek().equals("(")) {
+                break;
+            }
             retorno += stack.pop();
         }
-        
+
         return retorno;
     }
 
@@ -96,7 +104,12 @@ public class PostfixTest {
         
         System.err.println(translator(a) +" = "+eval(translator(a))); 
         System.err.println(translator(b) +" = "+eval(translator(b))); 
-        System.err.println(translator(c) +" = "+eval(translator(c))); 
+        System.err.println(translator(c) +" = "+eval(translator(c)));
+
+        System.out.println(translator("(a*b+(c+d))*(e+f)"));
+        System.out.println(translator("(a*b)+(c*d)"));
+        System.out.println(eval("12+34-+56+78--*"));
+        System.out.println(eval("53+6*21+/"));
     }
 
 } // PostfixText
