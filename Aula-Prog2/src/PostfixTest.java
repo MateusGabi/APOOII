@@ -102,9 +102,9 @@ public class PostfixTest {
         String b = "5+7*3";
         String c = "(5+7)*3";
         
-        System.err.println(translator(a) +" = "+eval(translator(a))); 
-        System.err.println(translator(b) +" = "+eval(translator(b))); 
-        System.err.println(translator(c) +" = "+eval(translator(c)));
+        System.out.println(translator(a) +" = "+eval(translator(a))); 
+        System.out.println(translator(b) +" = "+eval(translator(b))); 
+        System.out.println(translator(c) +" = "+eval(translator(c)));
 
         System.out.println(translator("(a*b+(c+d))*(e+f)"));
         System.out.println(translator("(a*b)+(c*d)"));
