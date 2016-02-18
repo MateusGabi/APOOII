@@ -20,7 +20,7 @@ public class IntCollectionTest
 
   public static void main(String[] args)
   {
-    test(new IntLinkedList());
+//    test(new IntLinkedList());
     test(new IntArray());
   }
 

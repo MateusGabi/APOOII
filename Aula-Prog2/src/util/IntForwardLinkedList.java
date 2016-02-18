@@ -39,7 +39,7 @@ class IntLinkedListIterator
 
 } // IntLinkedListIterator
 
-public class IntLinkedList
+class IntLinkedList
   extends IntCollection
 {
   private IntNode head;
