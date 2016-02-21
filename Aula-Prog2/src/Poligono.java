@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * @author mateus
  */
@@ -12,6 +14,8 @@ public class Poligono {
     private final double ANG_INTERNO;
     private final double ANG_EXTERNO;
     private final double ANG_CENTRAL;
+    private final double APOTEMA;
+    private final double AREA;
 
     public Poligono(int side, double sideLenght) {
         this.SIDE = side;
@@ -22,18 +26,23 @@ public class Poligono {
         this.ANG_INTERNO = SOMA_ANG_INTERNO / side;
         this.ANG_EXTERNO = 360 / side;
         this.ANG_CENTRAL = 360 / side;
-    }
-
-    public double getApotema()
-    {
-        return SIDELENGHT / (2*Math.tan(Math.PI/SIDE));
+        this.APOTEMA = SIDELENGHT / (2*Math.tan(Math.PI/SIDE));
+        this.AREA = SIDE*SIDELENGHT/2.0*APOTEMA;
     }
     
-    public double getArea()
-    {
-        return SIDE*SIDELENGHT/2.0*getApotema();
-    }
-
+    /**
+     * Imprime as seguintes informações:
+     *  - lados;
+     *  - diagonais;
+     *  - triangulos;
+     *  - soma dos angulos externos;
+     *  - soma dos angulos internos;
+     *  - angulo interno;
+     *  - angulo externo;
+     *  - angulo central;
+     *  - apótema; e
+     *  - área.
+     */
     public void print() {
         System.out.println("Este é um polígono de:");
         System.out.println("-- lados = " + SIDE);
@@ -44,22 +53,23 @@ public class Poligono {
         System.out.println("-- angulo internos = " + ANG_INTERNO +"°");
         System.out.println("-- angulo externos = " + ANG_EXTERNO +"°");
         System.out.println("-- angulo central = " + ANG_CENTRAL +"°");
-        System.out.println("-- apótema = " + getApotema() +"u");
-        System.out.println("-- area = " + getArea() +"u²");
+        System.out.println("-- apótema = " + APOTEMA +"u");
+        System.out.println("-- area = " + AREA +"u²");
         System.out.println();
     }
 
     public static void main(String[] args) {
-        Poligono triangulo = new Poligono(3, 1.0);
-        triangulo.print();
+       
+        List<Poligono> poligonos = new ArrayList<>();
         
-        Poligono dodecagono = new Poligono(12, 1.0);
-        dodecagono.print();
+        for (int i = 1; i <= 20; i++)
+        {
+            poligonos.add(new Poligono(i, 1.0));
+        }
         
-        Poligono eneadecágono = new Poligono(19, 1.0);
-        eneadecágono.print();
-        
-        Poligono vintágono = new Poligono(20, 1.0);
-        vintágono.print();
+        for (Poligono poligono : poligonos)
+        {
+            poligono.print();
+        }
     }
 }
