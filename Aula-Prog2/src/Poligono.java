@@ -15,9 +15,11 @@ public class Poligono {
     private final double ANG_EXTERNO;
     private final double ANG_CENTRAL;
     private final double APOTEMA;
+    private final double RAIO;
     private final double AREA;
+    private final double ALTURA;
 
-    public Poligono(int side, double sideLenght) {
+    public Poligono(int side, double sideLenght) {               
         this.SIDE = side;
         this.SIDELENGHT = sideLenght;
         this.DIAGONAIS = side - 3;
@@ -27,7 +29,9 @@ public class Poligono {
         this.ANG_EXTERNO = 360 / side;
         this.ANG_CENTRAL = 360 / side;
         this.APOTEMA = SIDELENGHT / (2*Math.tan(Math.PI/SIDE));
+        this.RAIO = SIDELENGHT / (2*Math.sin(Math.PI/SIDE));
         this.AREA = SIDE*SIDELENGHT/2.0*APOTEMA;
+        this.ALTURA = (side%2==0) ? 2.0*APOTEMA : RAIO + APOTEMA;
     }
     
     /**
@@ -40,21 +44,25 @@ public class Poligono {
      *  - angulo interno;
      *  - angulo externo;
      *  - angulo central;
-     *  - apótema; e
-     *  - área.
+     *  - apótema;
+     *  - raio;
+     *  - área; E
+     *  - altura;
      */
     public void print() {
         System.out.println("Este é um polígono de:");
-        System.out.println("-- lados = " + SIDE);
-        System.out.println("-- diagonais = " + DIAGONAIS);
-        System.out.println("-- triangulos = " + TRIANGULOS);
-        System.out.println("-- soma dos angulos externos = " + SOMA_ANG_EXTERNO +"°");
-        System.out.println("-- soma dos angulos iternos = " + SOMA_ANG_INTERNO +"°");
-        System.out.println("-- angulo internos = " + ANG_INTERNO +"°");
-        System.out.println("-- angulo externos = " + ANG_EXTERNO +"°");
-        System.out.println("-- angulo central = " + ANG_CENTRAL +"°");
-        System.out.println("-- apótema = " + APOTEMA +"u");
-        System.out.println("-- area = " + AREA +"u²");
+        System.out.println("- lados = " + SIDE);
+        System.out.println("- diagonais = " + DIAGONAIS);
+        System.out.println("- triangulos = " + TRIANGULOS);
+        System.out.println("- soma dos angulos externos = " + SOMA_ANG_EXTERNO +"°");
+        System.out.println("- soma dos angulos iternos = " + SOMA_ANG_INTERNO +"°");
+        System.out.println("- angulo internos = " + ANG_INTERNO +"°");
+        System.out.println("- angulo externos = " + ANG_EXTERNO +"°");
+        System.out.println("- angulo central = " + ANG_CENTRAL +"°");
+        System.out.println("- apótema = " + APOTEMA +"u");
+        System.out.println("- raio = " + RAIO +"u");
+        System.out.println("- area = " + AREA +"u²");
+        System.out.println("- altura = " + ALTURA +"u");
         System.out.println();
     }
 
@@ -62,7 +70,7 @@ public class Poligono {
        
         List<Poligono> poligonos = new ArrayList<>();
         
-        for (int i = 1; i <= 20; i++)
+        for (int i = 3; i <= 20; i++)
         {
             poligonos.add(new Poligono(i, 1.0));
         }
