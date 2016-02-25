@@ -17,6 +17,12 @@ public class QuadtreeTest
     return points;
   }
 
+  static void print(util.Iterator<Quadtree.Node> nit)
+  {
+      while (nit.hasNext()) {
+          System.out.println(nit.next());
+      }
+  }
   public static void main(String[] args)
   {
     Vec2[] points = rand(50, -20, 30);
@@ -24,20 +30,26 @@ public class QuadtreeTest
 
     tree.print();
     System.out.printf("Point count: %d\n", tree.getPointCount());
-    for (util.Iterator<Quadtree.Node> nit = tree.iterator(); nit.hasNext();)
-    {
-      Quadtree.Node node = nit.next();
-
-      if (node.getId().isEmpty())
-        continue;
-
-      int np = node.getPointCount();
-
-      System.out.printf(
-        "%s: %s\n",
-        node.getId(),
-        np == 0 ? "empty" : String.valueOf(np));
-    }
+//    for (util.Iterator<Quadtree.Node> nit = tree.iterator(); nit.hasNext();)
+//    {
+//      Quadtree.Node node = nit.next();
+//
+//      if (node.getId().isEmpty())
+//        continue;
+//
+//      int np = node.getPointCount();
+//
+//      System.out.printf(
+//        "%s: %s\n",
+//        node.getId(),
+//        np == 0 ? "empty" : String.valueOf(np));
+//    }
+    
+            System.out.println("Depth");
+    
+        print(tree.iterator());
+        System.out.println("Breadth");
+        print(tree.breadthFirstIterator(6));
   }
 
 } // QuadtreeTest

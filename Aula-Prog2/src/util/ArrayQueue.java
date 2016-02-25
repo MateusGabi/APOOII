@@ -7,6 +7,27 @@ package util;
 public class ArrayQueue<E>
         implements Queue<E> {
 
+    class ArrayQueueIterator<E>
+            implements Iterator<E> {
+
+        private int current;
+
+        public ArrayQueueIterator() {
+            current = ArrayQueue.this.head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != ArrayQueue.this.tail;
+        }
+
+        @Override
+        public E next() {
+            return (E) data[current = (current + 1) % ArrayQueue.this.data.length];
+        }
+
+    }
+
     public ArrayQueue(int n) {
         if (n < 2) {
             throw new IllegalStateException();
@@ -89,12 +110,12 @@ public class ArrayQueue<E>
 
     @Override
     public boolean contains(E value) {
-        for (int i = head; i != tail;) {            
-            if (data[i = (i+1) % data.length].equals(value)) {
+        for (int i = head; i != tail;) {
+            if (data[i = (i + 1) % data.length].equals(value)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -110,7 +131,7 @@ public class ArrayQueue<E>
 
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayQueueIterator<>();
     }
 
     int head;

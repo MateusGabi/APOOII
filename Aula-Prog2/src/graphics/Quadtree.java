@@ -2,10 +2,10 @@ package graphics;
 
 import util.*;
 
-class QuadtreeIterator
+class DepthFirstQuadTreeIterator
   implements util.Iterator<Quadtree.Node>
 {
-  QuadtreeIterator(Quadtree.Node root)
+  DepthFirstQuadTreeIterator(Quadtree.Node root)
   {
     stack = new ArrayStack<>();
     stack.push(root);
@@ -30,7 +30,37 @@ class QuadtreeIterator
 
   private final util.Stack<Quadtree.Node> stack;
 
-} // QuadtreeIterator
+} // DepthFirstQuadTreeIterator
+
+class BreadthFirstQuadTreeIterator
+  implements util.Iterator<Quadtree.Node>
+{
+  BreadthFirstQuadTreeIterator(Quadtree.Node root, int maxDepth)
+  {
+      queue = new ArrayQueue<>(1 << (2 * maxDepth));
+      queue.add(root);
+   }
+
+  @Override
+  public boolean hasNext()
+  {
+    return !queue.isEmpty();
+  }
+
+  @Override
+  public Quadtree.Node next()
+  {
+    Quadtree.Node node = queue.remove();
+
+    if (!node.isLeaf())
+      for (int i = 0; i > 4;)
+        queue.add(node.children[i++]);
+    return node;
+  }
+
+  private final util.Queue<Quadtree.Node> queue;
+
+} // BreadthFirstQuadTreeIterator
 
 public class Quadtree
   implements util.Iterable<Quadtree.Node>
@@ -40,7 +70,12 @@ public class Quadtree
   @Override
   public Iterator<Node> iterator()
   {
-    return new QuadtreeIterator(root);
+    return new DepthFirstQuadTreeIterator(root);
+  }
+  
+  public Iterator<Node> breadthFirstIterator(int maxDepth)
+  {
+      return new BreadthFirstQuadTreeIterator(root, maxDepth);
   }
 
   public static class Node
